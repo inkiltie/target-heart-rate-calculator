@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Target Heart Rate Calculator</title>
+<meta name="description" content="Assignment 1">
+<meta charset="UTF-8">
+
+</head>
+
+<style type="text/css">
+	body {
+		background-color: skyblue;
+	}
+    label {
+        font-weight: bold;
+    }
+    h3 {
+        color: darkblue;
+    }
+    table {
+		border-collapse: collapse;
+	}
+    .parent {
+        margin-left: 100px;
+        height: 301px;
+        background-color: aqua;
+    }
+    .results {
+        border-left: 2px solid skyblue;
+        margin-left: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        height: 301px;
+    }
+    .green {
+        color: green;
+    }
+</style>
+
+<body onload="HideResults();">
+<h1>Target Heart Rate Calculator</h1>
+
+<table>
+<tr>
+<td>
+<form>
+    <label>Please enter your age:</label><br /><br />
+    <input type="text" id="ageValue" maxlength="3" size="4" onblur ="CheckForNumbers(this.value)" /><br /><br />
+
+	<label>Please select your excersice intensity zone:</label><br />
+	<p><input type="radio" name="zoneVariation" id="zoneOne" value="Zone 1" /> Zone 1 (Very light: 50% to 60% of your max heart rate)</p>
+	<p><input type="radio" name="zoneVariation" id="zoneTwo" value="Zone 2" /> Zone 2 (Light: 60% to 70% of your max heart rate)</p>
+	<p><input type="radio" name="zoneVariation" id="zoneThree" value="Zone 3" /> Zone 3 (Moderate: 70% to 80% of your max heart rate)</p>
+	<p><input type="radio" name="zoneVariation" id="zoneFour" value="Zone 4" /> Zone 4 (Hard: 80% to 90% of your max heart rate)</p>
+	<p><input type="radio" name="zoneVariation" id="zoneFive" value="Zone 5" /> Zone 5 (Maximum: 90% to 100% of your max heart rate)</p>
+	<p><input type="reset" name="reset" id="reset" value="Reset" onclick="ClearResults();" /> &nbsp; &nbsp;
+	<input type="button" name="submit" id="submit" value="Submit" onclick="CalcHeartRateZones();" /></p>
+</form>
+</td>
+<td>
+    <div class="parent">
+        <div class="results" id="displayResults">
+        </div>
+    </div>
+</td>
+</tr>
+</table>
+
+<script type="text/javascript">
+
+	function CheckForNumbers(ageValue){
+		if(isNaN(ageValue)) {
+			window.alert("Input error. You must enter a numeric value for the age field.");
+			return  false;
+		}
+		else {
+			return true;
+		}
+	}
+
+    function ClearResults(){
+            var resetMessage = window.confirm("Are you sure you want to reset this form?");
+            if (resetMessage == true){
+                document.getElementById("displayResults").style.display="none";
+                return true;
+            }
+            else {
+                return false;
+            }
+    }
+
+    function HideResults(){
+        document.getElementById("displayResults").style.display="none";
+    }
+
+	function CalcHeartRateZones(){
+
+        document.getElementById("displayResults").style.display="block";
+
+		var zone1 = document.getElementById("zoneOne");
+		var zone2 = document.getElementById("zoneTwo");
+		var zone3 = document.getElementById("zoneThree");
+		var zone4 = document.getElementById("zoneFour");
+		var zone5 = document.getElementById("zoneFive");
+
+        var age = document.getElementById("ageValue");
+
+        var maxHeartRate = 220 - age.value;
+
+        var lowerBoundHeartRateZone1 = maxHeartRate * 0.5;
+        var upperBoundHeartRateZone1 = maxHeartRate * 0.6;
+
+        var lowerBoundHeartRateZone2 = maxHeartRate * 0.6;
+        var upperBoundHeartRateZone2 = maxHeartRate * 0.7;
+
+        var lowerBoundHeartRateZone3 = maxHeartRate * 0.7;
+        var upperBoundHeartRateZone3 = maxHeartRate * 0.8;
+
+        var lowerBoundHeartRateZone4 = maxHeartRate * 0.8;
+        var upperBoundHeartRateZone4 = maxHeartRate * 0.9;
+
+        var lowerBoundHeartRateZone5 = maxHeartRate * 0.9;
+        var upperBoundHeartRateZone5 = maxHeartRate * 1.0;
+
+		
+		if (zone1.checked){
+			document.getElementById("displayResults").innerHTML = "<br /><br /><br /><h3>Target Heart Rate Results</h3>" + 
+            "<label>Your comfort zone: " + 
+            "<label class=green>" + zone1.value + "</label><br /><br />" +
+            "<label>Your target heart rate range: </label>" + "<label class=green>" + 
+            lowerBoundHeartRateZone1.toFixed(1) + " to " + upperBoundHeartRateZone1.toFixed(1) + "</label><br /><br />" +
+            "<label>About Zone 1:</label><br />" + 
+            "<label class=green>This zone encourages the flow of blood, which is key to maintaining a<br />" +
+            "healthy heart and improving recovery after difficult workouts.</label>";
+		}
+		else if (zone2.checked){
+			document.getElementById("displayResults").innerHTML = "<br /><br /><br /><h3>Target Heart Rate Results</h3>" + 
+            "<label>Your comfort zone: " + 
+            "<label class=green>" + zone2.value + "</label><br /><br />" +
+            "<label>Your target heart rate range: </label>" + "<label class=green>" + 
+            lowerBoundHeartRateZone2.toFixed(1) + " to " + upperBoundHeartRateZone2.toFixed(1) + "</label><br /><br />" +
+            "<label>About Zone 2:</label><br />" + 
+            "<label class=green>At a light intensity, this zone enhances your endurance and increases<br />" +
+            "your body's ability to use fats and carbohydrates as fuel.</label>";
+		}
+		else if (zone3.checked){
+			document.getElementById("displayResults").innerHTML = "<br /><br /><br /><h3>Target Heart Rate Results</h3>" + 
+            "<label>Your comfort zone: " + 
+            "<label class=green>" + zone3.value + "</label><br /><br />" +
+            "<label>Your target heart rate range: </label>" + "<label class=green>" + 
+            lowerBoundHeartRateZone3.toFixed(1) + " to " + upperBoundHeartRateZone3.toFixed(1) + "</label><br /><br />" +
+            "<label>About Zone 3:</label><br />" + 
+            "<label class=green>Workouts in this zone help improve your body’s aerobic capacity,<br />" + 
+            "or the ability to use oxygen. This zone also delays the fatigue caused by lactic acid.</label>";
+		}
+		else if (zone4.checked){
+			document.getElementById("displayResults").innerHTML = "<br /><br /><br /><h3>Target Heart Rate Results</h3>" + 
+            "<label>Your comfort zone: " + 
+            "<label class=green>" + zone4.value + "</label><br /><br />" +
+            "<label>Your target heart rate range: </label>" + "<label class=green>" + 
+            lowerBoundHeartRateZone4.toFixed(1) + " to " + upperBoundHeartRateZone4.toFixed(1) + "</label><br /><br />" +
+            "<label>About Zone 4:</label><br />" + 
+            "<label class=green>This zone improves your performance and makes moderate intensity effort easier<br />" + 
+            "by improving efficiency. Exercise in this zone is recommended for only short periods of time.</label>";
+		}
+		else if (zone5.checked){
+			document.getElementById("displayResults").innerHTML = "<br /><br /><br /><h3>Target Heart Rate Results</h3>" + 
+            "<label>Your comfort zone: " + 
+            "<label class=green>" + zone5.value + "</label><br /><br />" +
+            "<label>Your target heart rate range: </label>" + "<label class=green>" + 
+            lowerBoundHeartRateZone5.toFixed(1) + " to " + upperBoundHeartRateZone5.toFixed(1) + "</label><br /><br />" +
+            "<label>About Zone 5:</label><br />" + 
+            "<label class=green>The maximum zone should be used by experienced athletes only.<br />" + 
+            "Short bouts in this high-intensity zone help to develop top-end speed and overall performance.</label>";
+		}
+	}
+        
+</script>
+
+</body>
+</html>
